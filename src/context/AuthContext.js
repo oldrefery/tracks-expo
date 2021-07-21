@@ -6,6 +6,8 @@ import { navigate } from "../navigationRef";
 
 const authReducer = (state, action) => {
   switch (action.type) {
+    case "clear_error":
+      return { ...state, errorMessage: "" };
     case "add_error":
       return { ...state, errorMessage: action.payload };
     case "signup":
@@ -14,6 +16,12 @@ const authReducer = (state, action) => {
     default:
       return state;
   }
+};
+
+const clearErrorMessage = (dispatch) => {
+  return () => {
+    dispatch({ type: "clear_error" });
+  };
 };
 
 const signup = (dispatch) => {
@@ -62,6 +70,6 @@ const signout = (dispatch) => {
 
 export const { Provider, Context } = createDataContext(
   authReducer,
-  { signin, signout, signup },
+  { signin, signout, signup, clearErrorMessage },
   { token: null, errorMessage: "" }
 );
