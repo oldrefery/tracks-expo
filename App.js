@@ -30,7 +30,7 @@ const switchNavigator = createSwitchNavigator(
     }),
   },
   {
-    initialRouteName: "loginFlow",
+    initialRouteName: "ResolveAuth",
   }
 );
 
