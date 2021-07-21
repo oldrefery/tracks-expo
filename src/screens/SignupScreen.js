@@ -1,17 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, Pressable } from "react-native";
-import { Text, Input, Button } from "react-native-elements";
+import { Text } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
+import AuthForm from "../components/AuthForm";
 
 const SignupScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const { state, signup } = useContext(AuthContext);
-
-  const handleSignup = () => {
-    signup({ email, password });
-  };
 
   const handleSignin = () => {
     navigation.navigate("Signin");
@@ -19,31 +14,12 @@ const SignupScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Spacer>
-        <Text h3>Sign Up for Tracker</Text>
-      </Spacer>
-      <Input
-        label="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        autoCorrect={false}
+      <AuthForm
+        title={"Sign Up for Tracker"}
+        errorMessage={state.errorMessage}
+        submitTitle={"Sign Up"}
+        onSubmit={signup}
       />
-      <Spacer />
-      <Input
-        secureTextEntry
-        label="Password"
-        value={password}
-        onChangeText={setPassword}
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-      {state.errorMessage ? (
-        <Text style={styles.error}>{state.errorMessage}</Text>
-      ) : null}
-      <Spacer>
-        <Button title="Sign Up" onPress={handleSignup} />
-      </Spacer>
       <Pressable onPress={handleSignin} style={styles.link}>
         <Spacer>
           <Text style={styles.linkText}>
@@ -66,12 +42,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     marginBottom: 250,
-  },
-  error: {
-    fontSize: 16,
-    color: "red",
-    marginLeft: 15,
-    marginTop: 15,
   },
   linkText: {
     color: "blue",
