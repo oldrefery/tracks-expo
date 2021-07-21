@@ -10,7 +10,7 @@ const SigninScreen = () => {
   return (
     <View style={styles.container}>
       <AuthForm
-        title={"Sign In for Tracker"}
+        title={"Sign In to Your Account"}
         errorMessage={state.errorMessage}
         submitTitle={"Sign In"}
         onSubmit={signin}
