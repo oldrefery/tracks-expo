@@ -13,6 +13,8 @@ const authReducer = (state, action) => {
     case "signup":
     case "signin":
       return { ...state, errorMessage: "", token: action.payload };
+    case "signout":
+      return { ...state, token: null };
     default:
       return state;
   }
@@ -30,7 +32,7 @@ const tryLocalSignin = (dispatch) => async () => {
 };
 
 const clearErrorMessage = (dispatch) => {
-  return () => {
+  return async () => {
     dispatch({ type: "clear_error" });
   };
 };
@@ -74,8 +76,17 @@ const signin = (dispatch) => {
 };
 
 const signout = (dispatch) => {
-  return () => {
-    // somehow sign out!!!
+  return async () => {
+    try {
+      await AsyncStorage.removeItem("token");
+      dispatch({ type: "signout" });
+      navigate("ResolveAuth");
+    } catch (err) {
+      dispatch({
+        type: "add_error",
+        payload: "Something went wrong with sign up",
+      });
+    }
   };
 };
 
