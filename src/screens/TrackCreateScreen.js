@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { requestForegroundPermissionsAsync } from "expo-location";
 import { Text } from "react-native-elements";
 
 import Map from "../components/Map";
-import { StyleSheet } from "react-native";
+import "../_mockLocation";
 
 const TrackCreateScreen = () => {
   const [err, setErr] = useState(null);
@@ -13,7 +14,8 @@ const TrackCreateScreen = () => {
     try {
       const { granted } = await requestForegroundPermissionsAsync();
       if (!granted) {
-        throw new Error("Location permission not granted");
+        // throw new Error("Location permission not granted");
+        setErr("Location permission not granted");
       }
     } catch (e) {
       setErr(e);
