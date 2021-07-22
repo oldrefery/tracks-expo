@@ -1,10 +1,12 @@
 import * as Location from "expo-location";
 
 const tenMetersWithDegrees = 0.0001;
+const MS_IN_ONE_SEC = 1000;
+let counter = 0;
 
 const getLocation = (increment) => {
   return {
-    timestamp: 1000000,
+    timestamp: 1000000 + counter * MS_IN_ONE_SEC,
     coords: {
       speed: 0,
       heading: 0,
@@ -17,11 +19,14 @@ const getLocation = (increment) => {
   };
 };
 
-let counter = 0;
-setInterval(() => {
+const timer = setInterval(() => {
   Location.EventEmitter.emit("Expo.locationChanged", {
     watchId: Location._getCurrentWatchId(),
     location: getLocation(counter),
   });
   counter++;
 }, 1000);
+
+if (timer > 120) {
+  clearInterval(timer);
+}
