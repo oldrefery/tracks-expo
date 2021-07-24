@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView from "react-native-maps";
 import { Context as LocationContext } from "../context/LocationContext";
 
 const Map = () => {
@@ -24,14 +24,8 @@ const Map = () => {
         latitudeDelta: 0.001,
         longitudeDelta: 0.001,
       }}
-      region={{
-        ...currentLocation.coords,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.001,
-      }}
-    >
-      <Marker coordinate={currentLocation.coords} />
-    </MapView>
+      showsUserLocation={true}
+    />
   );
 };
 
