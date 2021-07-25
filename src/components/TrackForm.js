@@ -12,8 +12,6 @@ const TrackForm = () => {
   } = useContext(LocationContext);
   const titleButton = isRecording ? "Stop" : "Start recording";
 
-  console.log("locations", locations.length);
-
   const handleStartRecord = () => {
     if (isRecording) {
       stopRecording();
@@ -31,7 +29,14 @@ const TrackForm = () => {
           placeholder={"Enter name"}
         />
       </Spacer>
-      <Button title={titleButton} onPress={handleStartRecord} />
+      <Spacer>
+        <Button title={titleButton} onPress={handleStartRecord} />
+      </Spacer>
+      {!isRecording && locations.length ? (
+        <Spacer>
+          <Button title={"Save recording"} />
+        </Spacer>
+      ) : null}
     </>
   );
 };

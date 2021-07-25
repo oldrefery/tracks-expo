@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { Polyline } from "react-native-maps";
 import { Context as LocationContext } from "../context/LocationContext";
 
 const Map = () => {
   const {
-    state: { currentLocation },
+    state: { currentLocation, locations },
   } = useContext(LocationContext);
+  const coords = locations.map((location) => location.coords);
+  const showTrack = coords.length > 0;
 
   if (!currentLocation) {
     return (
@@ -25,7 +27,9 @@ const Map = () => {
         longitudeDelta: 0.001,
       }}
       showsUserLocation={true}
-    />
+    >
+      {showTrack && <Polyline coordinates={coords} />}
+    </MapView>
   );
 };
 
