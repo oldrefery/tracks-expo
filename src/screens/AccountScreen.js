@@ -4,6 +4,7 @@ import { Button } from "react-native-elements";
 import { Context as AuthContext } from "../context/AuthContext";
 import Spacer from "../components/Spacer";
 import { SafeAreaView } from "react-navigation";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const AccountScreen = () => {
   const { signout } = useContext(AuthContext);
@@ -25,7 +26,8 @@ const AccountScreen = () => {
 
 AccountScreen.navigationOptions = () => {
   return {
-    headerShown: false,
+    title: "Account",
+    tabBarIcon: <MaterialIcons name="settings" size={20} />,
   };
 };
 

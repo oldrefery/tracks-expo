@@ -14,6 +14,16 @@ import { Provider as LocationProvider } from "./src/context/LocationContext";
 import { Provider as TrackProvider } from "./src/context/TrackContext";
 import { setNavigator } from "./src/navigationRef";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+const trackListFlow = createStackNavigator({
+  TrackList: TrackListScreen,
+  TrackDetail: TrackDetailScreen,
+});
+trackListFlow.navigationOptions = {
+  title: "Tracks",
+  tabBarIcon: <MaterialCommunityIcons name="format-list-text" size={20} />,
+};
 
 const switchNavigator = createSwitchNavigator(
   {
@@ -23,10 +33,7 @@ const switchNavigator = createSwitchNavigator(
       Signin: SigninScreen,
     }),
     mainFlow: createBottomTabNavigator({
-      trackListFlow: createStackNavigator({
-        TrackList: TrackListScreen,
-        TrackDetail: TrackDetailScreen,
-      }),
+      trackListFlow,
       TrackCreate: TrackCreateScreen,
       Account: AccountScreen,
     }),
