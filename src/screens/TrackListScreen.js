@@ -4,14 +4,14 @@ import { NavigationEvents } from "react-navigation";
 import { Context as TrackContext } from "../context/TrackContext";
 import { ListItem } from "react-native-elements";
 
-const TrackListScreen = () => {
+const TrackListScreen = ({ navigation }) => {
   const { state, fetchTracks } = useContext(TrackContext);
 
   const keyExtractor = (item) => `id: ${item._id}`;
 
   const renderItem = ({ item }) => {
     return (
-      <Pressable>
+      <Pressable onPress={() => handleSelectTrack(item._id)}>
         <ListItem>
           <ListItem.Content>
             <ListItem.Title>{item.name}</ListItem.Title>
@@ -20,6 +20,10 @@ const TrackListScreen = () => {
         </ListItem>
       </Pressable>
     );
+  };
+
+  const handleSelectTrack = (_id) => {
+    navigation.navigate("TrackDetail", { _id });
   };
 
   return (
